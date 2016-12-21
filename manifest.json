@@ -1,0 +1,19 @@
+{
+  "manifest_version": 2,
+  "name": "DBUFR",
+  "version": "1.0.0",
+
+  "description": "Consultation des notes de l'UFR d'Informatique de l'Université Pierre et Marie Curie",
+
+  "author": "Sandu Postaru",
+  "homepage_url": "https://github.com/kuoa/dbufr-chrome-extension",
+
+  "browser_action": {
+    "default_icon": "images/icon.png",
+    "default_popup": "popup.html"
+  },
+
+  "permissions": [
+    "https://www-dbufr.ufr-info-p6.jussieu.fr/"
+  ]
+}

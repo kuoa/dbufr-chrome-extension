@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <title>Testing</title>
+
+        <!-- Bootstrap -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+
+        <style type="text/css">
+            body {
+                width: 600px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="col-md-12">
+
+            <!-- rating panel [hidden] | after a few days of using display ONCE -->
+            <div class="alert-panel hidden">
+                <h3 class="text-center"></h3>
+                <div class="alert alert-info alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    If you enjoy using the extension, please take a moment to
+                    <a href="#" class="alert-link">rate it</a>. Thank you!
+                </div>
+            </div>
+
+            <!-- loading panel [hidden] -->
+            <div class="loading-panel hidden">
+                <h3 class="text-center">Chargement</h3>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-info progress-bar-striped active"
+                         role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
+                        <span class="sr-only">45% Complete</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- error panel [hidden] -->
+            <div class="error-panel hidden">
+                <h3 class="text-center"></h3>
+                <div class="alert alert-danger" role="alert">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span class="sr-only">Error:</span>
+                    Oh snap! Erreur de connexion :(
+                    <a href="#" class="alert-link pull-right" role="button">
+                        <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- main panel [hidden] -->
+            <div class="main-panel">
+                <h3 class="text-center" id="welcome"></h3>
+
+                <div class="panel panel-default">
+                    <div class="panel-body text-center" id="description"></div>
+                </div>
+
+
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true"></div>
+            </div>
+        </div>
+
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="js/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/popup.js"></script>
+    </body>
+</html>
