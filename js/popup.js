@@ -18,21 +18,21 @@ const url = "https://www-dbufr.ufr-info-p6.jussieu.fr/lmd/2004/master/auths/seeS
 function getDateTime(){
     var today = new Date();
     var dd = today.getDate();
-    var mm = today.getMonth()+1; //January is 0!
+    var mm = today.getMonth() + 1;
     var yyyy = today.getFullYear();
     var hh = today.getHours();
     var min = today.getMinutes();
 
     if(dd<10) {
-        dd='0'+dd
+        dd='0' + dd
     }
 
     if(mm<10) {
-        mm='0'+mm
+        mm='0'  +mm
     }
 
 
-    return dd+'/'+mm+'/'+yyyy + " " + hh + ":" + min;
+    return dd + '/' + mm+'/' + yyyy + " " + hh + ":" + min;
 }
 
 /**
@@ -88,7 +88,7 @@ var GradeSet = function(html){
  * @param successCallback function called on onSuccess
  * @param errorCallback function called on error
  */
-function getDbufrData(user, pass, successCallback, errorCallback) {
+function getDbufrData(user, pass, successCallback, loginErrorCallback, networkErrorCallback) {
 
     var req = new XMLHttpRequest();
 
@@ -97,11 +97,27 @@ function getDbufrData(user, pass, successCallback, errorCallback) {
     req.withCredentials = true;
 
     req.onload = function () {
-        successCallback(this.responseText);
+
+        hideProgressBar();
+
+        if(req.readyState === 4){
+            switch (req.status) {
+                case 200 :
+                    successCallback(this.responseText);
+                    break;
+
+                case 401 :
+                    loginErrorCallback(" Numéro d'étudiant ou mot de passe incorrect");
+                    break;
+            }
+        }
     };
 
     req.onerror = function () {
-        errorCallback('Network Error.');
+
+        hideProgressBar();
+
+        networkErrorCallback(" Erreur inattendue de réseau");
     };
 
     req.send();
@@ -141,7 +157,8 @@ function tableHeaderHtml(idCounter, title) {
 }
 
 function tableContentStartHtml(idCounter) {
-    var contentMoldStart ='<div id="collapse' + idCounter + '" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading"'+'idCounter' + '">' +
+    var contentMoldStart ='<div id="collapse' + idCounter + '" class="panel-collapse collapse" ' +
+        'role="tabpanel" aria-labelledby="heading"'+'idCounter' + '">' +
         '<div class="panel-body">' +
         '<table class="table table-bordered table-condensed" id="table"' + idCounter +'">' +
         '<thead> <tr class="active"> <th>UE</th> <th>Contrôle</th> <th>Note</th> </tr> </thead>' + '<tbody>';
@@ -205,6 +222,9 @@ function createTable(gradeSet) {
         .removeClass('panel-default').addClass('panel-info');
     /* open the last one */
     $('#collapse' + idCounter).addClass('in');
+
+    /* display the main pannel */
+    $('.main-panel').show();
 }
 
 
@@ -218,11 +238,66 @@ function onSuccess(html){
     createNewView(grades);
 }
 
+/**
+ * Function called on XMLHttpRequest 401 error code
+ * @param msg
+ */
+function onLoginError(msg){
+
+    var content = '<h3 class="text-center"></h3>' +
+        '<div class="alert alert-warning" role="alert">' +
+        '<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>' +
+        '<span class="sr-only">Error:</span>' + msg +
+        '<span href="options page" class="alert-link pull-right" role="button">' +
+        '<span class="glyphicon glyphicon-cog" aria-hidden="true" id="options-button"></span>' +
+        '</span> </div>';
+
+    /* display content */
+    $('.error-panel').html(content).show();
+
+    /* click listener */
+    $('#options-button').on('click', function () {
+        alert('open settings page');
+    });
+}
+
+/**
+ * Function called on XMLHttpRequest network error
+ * @param msg
+ */
+function onNetworkError(msg){
+
+    var content = '<h3 class="text-center"></h3>' +
+        '<div class="alert alert-danger" role="alert">' +
+        '<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>' +
+        '<span class="sr-only">Error:</span>' + msg +
+        '<span class="alert-link pull-right" role="button">' +
+        '<span class="glyphicon glyphicon-repeat" aria-hidden="true" id="retry-button"></span>' +
+        '</span> </div>';
+
+    /* display content */
+    $('.error-panel').html(content).show();
+
+    /* click listener */
+    $('#retry-button').on('click', initializeExtension);
+}
+
+function hideProgressBar(){
+    $('.loading-panel').hide('slow');
+}
+
+function showProgressBar(){
+    $('.loading-panel').show();
+}
+
 function initializeExtension(){
 
-    var login;
-    var pass;
-    getDbufrData(login, pass, onSuccess, alert);
+    var login = "";
+    var pass = "";
+
+    showProgressBar();
+
+    getDbufrData(login, pass, onSuccess, onLoginError, onNetworkError);
 }
 
 document.addEventListener('DOMContentLoaded', initializeExtension);
