@@ -257,7 +257,13 @@ function onLoginError(msg){
 
     /* click listener */
     $('#options-button').on('click', function () {
-        alert('open settings page');
+        if (chrome.runtime.openOptionsPage) {
+            // New way to open options pages, if supported (Chrome 42+).
+            chrome.runtime.openOptionsPage();
+        } else {
+            // Reasonable fallback.
+            window.open(chrome.runtime.getURL('options.html'));
+        }
     });
 }
 
