@@ -19,6 +19,7 @@
   },
 
   "permissions": [
+    "storage",
     "https://www-dbufr.ufr-info-p6.jussieu.fr/"
   ]
 }

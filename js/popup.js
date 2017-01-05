@@ -4,14 +4,6 @@
 
 /****** listeners ******/
 
-/**
- * Change glyphicon image on click
- */
-
-$('.click-glyphicon').click( function(){
-    $(this).toggleClass('glyphicon-chevron-down').toggleClass('glyphicon-chevron-up');
-});
-
 /****** extension logic ******/
 const url = "https://www-dbufr.ufr-info-p6.jussieu.fr/lmd/2004/master/auths/seeStudentMarks.php";
 
@@ -223,6 +215,11 @@ function createTable(gradeSet) {
     /* open the last one */
     $('#collapse' + idCounter).addClass('in');
 
+    /*  Change glyphicon image on click */
+    $('.click-glyphicon').click( function(){
+        $(this).toggleClass('glyphicon-chevron-down').toggleClass('glyphicon-chevron-up');
+    });
+
     /* display the main pannel */
     $('.main-panel').show();
 }
@@ -298,12 +295,19 @@ function showProgressBar(){
 
 function initializeExtension(){
 
-    var login = "";
-    var pass = "";
-
     showProgressBar();
 
-    getDbufrData(login, pass, onSuccess, onLoginError, onNetworkError);
+    /* recover user informations from storage */
+    chrome.storage.sync.get({
+            login : "",
+            password : "",
+            frequency : 24
+        },
+
+        /* information recovered | do the request */
+        function (items) {
+            getDbufrData(items.login, items.password, onSuccess, onLoginError, onNetworkError);
+        });
 }
 
 document.addEventListener('DOMContentLoaded', initializeExtension);

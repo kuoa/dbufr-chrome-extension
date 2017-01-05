@@ -2,7 +2,7 @@
 DBUFR chrome extension
 
 ## TODO
-    * Options page + storage
+    * On click -> blue current table, remove blue from the other one ?
     * Storage -> Automatic checking + mail sending?
 
 ## Ideas
