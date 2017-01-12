@@ -6,11 +6,14 @@ function saveOptions(){
     var userId = $('#student-id').val();
     var userPass = $('#student-pswd').val();
     var updateFreq = parseInt($('input[name=radio-frequency]:checked', '#options-form').val());
+    var dsktNotif = $('#dskt-notify').is(':checked');
+    
 
     var config = {
         login : userId,
         password : userPass,
-        frequency : updateFreq
+        frequency : updateFreq,
+        notifications : dsktNotif
     };
 
     chrome.storage.sync.set (config,
@@ -22,7 +25,7 @@ function saveOptions(){
             
             /* replace current message */
             $('#save-title').fadeOut(300, function () {
-                $(this).text('Update complete. Alright alright alright').fadeIn(300);
+                $(this).text('Saving options').fadeIn(300);
             });
 
             /* restore old message */
@@ -40,10 +43,11 @@ function saveOptions(){
 function fillUserInfo() {
     /* recover user informations */
     chrome.storage.sync.get({
-            login : "",
-            password : "",
-            frequency : 0
-        },
+        login : "",
+        password : "",
+        frequency : 6,
+        notifications : true
+    },
 
         /* function called on completion */
         function (items) {
@@ -53,9 +57,10 @@ function fillUserInfo() {
             if (items.password != ""){
                 $('#student-pswd').val(items.password);
             }
-            if (items.frequency != 0){
-                $('#inline-radio' + items.frequency).prop('checked', true);
-            }
+
+            $('#inline-radio' + items.frequency).prop('checked', true);
+
+            $('#dskt-notify').prop('checked', items.notifications);
         });
 }
 

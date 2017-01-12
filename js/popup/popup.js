@@ -2,12 +2,17 @@
  * Created by kuoa on 12/20/16.
  */
 
-/****** listeners ******/
-
 
 /****** extension logic ******/
 const url = "https://www-dbufr.ufr-info-p6.jussieu.fr/lmd/2004/master/auths/seeStudentMarks.php";
 
+/**
+ * Connects to the DBUFR server and recovers the student's grades
+ * @param config
+ * @param successCallback
+ * @param loginErrorCallback
+ * @param networkErrorCallback
+ */
 function getDbufrData(config, successCallback, loginErrorCallback, networkErrorCallback) {
 
     var req = new XMLHttpRequest();
@@ -108,11 +113,12 @@ function displayNetworkError(msg){
     });
 }
 
-
+/**
+ * DBUFR extension routine
+ */
 function initializeExtension(){
 
-
-    /* number of new grades badge */
+    /* number of new grades [badge] */
     removeBadge();
 
     showProgressBar();
@@ -122,6 +128,7 @@ function initializeExtension(){
         login : "",
         password : "",
         frequency : 1,
+        notifications : true,
         gradesMap: null
     },
 
@@ -129,7 +136,7 @@ function initializeExtension(){
         function (config) {
 
             configureScheduler(config);
-
+            
             getDbufrData(config, displayData, displayLoginError, displayNetworkError);
         });
 }

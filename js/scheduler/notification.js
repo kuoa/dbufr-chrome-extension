@@ -1,6 +1,10 @@
 /**
  * Created by kuoa on 1/12/17.
  */
+
+/**
+ * Listener : close notification on user click
+ */
 chrome.notifications.onClicked.addListener(
 
     function(notificationId){
@@ -10,7 +14,11 @@ chrome.notifications.onClicked.addListener(
         popup.cancel();
     });
 
-
+/**
+ * [Function called by the scheduler]
+ * Create a new desktop notification
+ * @param data
+ */
 function createNotification(data){
 
     var options = {

@@ -3,9 +3,11 @@
  */
 
 const alarmName = "dbufr-check-updates";
-
+/**
+ * [Function called by the scheduler when alarm rings]
+ * @param config
+ */
 function checkUpdates(config){
-
 
     var oldGradesMap = config.gradesMap;
 
@@ -28,9 +30,7 @@ function checkUpdates(config){
                     var grades = new GradeSet(this.responseText);
                     var newGradesMap = grades.gradesMap;
 
-                    console.log(grades);
-
-                    compareGrades(oldGradesMap, newGradesMap);
+                    compareGrades(config, oldGradesMap, newGradesMap);
                     break;
 
                 case 401 :
@@ -47,9 +47,12 @@ function checkUpdates(config){
 
     req.send();
 
-    console.log("Got an alarm!");
 }
 
+/**
+ * Configure scheduler alarm
+ * @param config
+ */
 function configureScheduler(config){
 
     /* set callback */
@@ -60,8 +63,7 @@ function configureScheduler(config){
 
     /* create alarm */
     chrome.alarms.create(alarmName, {
-        /* needs to be * 60 */
-        periodInMinutes: config.frequency/10
+        periodInMinutes: config.frequency * 60
     });
 }
 

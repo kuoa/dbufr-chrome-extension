@@ -2,6 +2,13 @@
  * Created by kuoa on 1/11/17.
  */
 
+/**
+ * Student grade object
+ * @param ue
+ * @param controle
+ * @param note
+ * @constructor
+ */
 var Grade = function(ue, controle, note){
     this.ue = ue;
     this.controle = controle;
@@ -44,6 +51,10 @@ var GradeSet = function(html){
     saveGradeData(this.gradesMap);
 };
 
+/**
+ * Save current grades to local storage
+ * @param grades
+ */
 function saveGradeData(grades){
 
     var config = {gradesMap : grades};
@@ -55,7 +66,13 @@ function saveGradeData(grades){
         });
 }
 
-function compareGrades(oldGrades, newGrades){
+/**
+ * [Function called by the scheduler]
+ * Compare old vs new grades.
+ * @param oldGrades
+ * @param newGrades
+ */
+function compareGrades(config, oldGrades, newGrades){
 
     /* if first run */
     if(oldGrades === null){
@@ -77,21 +94,19 @@ function compareGrades(oldGrades, newGrades){
 
                 notifyGrades.push({title : grade.ue, message: grade.controle});
 
-                console.log("new grade found for " +  key + " -> " + newGrades[key]);
+                //console.log("new grade found for " +  key + " -> " + newGrades[key]);
             }
         }
     }
 
     if(notifyGrades.length != 0){
-        console.log("Found new grades " + notifyGrades);
+        //console.log("Found new grades " + notifyGrades);
 
         createBadge(notifyGrades.length.toString());
-        createNotification(notifyGrades);
 
+        if(config.notifications){
+            createNotification(notifyGrades);
+        }
     }
-    else{
-        console.log("No new grades found " + newGradesFound);
-    }
-    
 }
 
