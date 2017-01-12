@@ -25,7 +25,7 @@ function createNotification(data){
         type: "list",
         title: "New grades available",
         message: "Here are your new grades",
-        iconUrl: "images/icon.png",
+        iconUrl: "images/icon128.png",
         items: data
     };
 
@@ -33,7 +33,7 @@ function createNotification(data){
         function(notificationId){
             setTimeout(function(){
                 chrome.notifications.clear(notificationId, function(){});
-            }, 4000);
+            }, 5000);
     });
 
 }

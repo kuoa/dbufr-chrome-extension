@@ -2,12 +2,15 @@
  * Created by kuoa on 1/5/17.
  */
 
+/**
+ * Save user options on local storage
+ */
 function saveOptions(){
     var userId = $('#student-id').val();
     var userPass = $('#student-pswd').val();
     var updateFreq = parseInt($('input[name=radio-frequency]:checked', '#options-form').val());
     var dsktNotif = $('#dskt-notify').is(':checked');
-    
+
 
     var config = {
         login : userId,
@@ -19,9 +22,6 @@ function saveOptions(){
     chrome.storage.sync.set (config,
         /* save complete */
         function () {
-
-            /* automatic updates */
-            /* GET BACKGROUND PAGE */
             
             /* replace current message */
             $('#save-title').fadeOut(300, function () {

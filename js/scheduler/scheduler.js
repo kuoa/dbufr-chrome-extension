@@ -60,7 +60,6 @@ function configureScheduler(config){
         checkUpdates(config);
     });
 
-
     /* create alarm */
     chrome.alarms.create(alarmName, {
         periodInMinutes: config.frequency * 60
