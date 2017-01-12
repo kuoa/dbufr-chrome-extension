@@ -39,4 +39,59 @@ var GradeSet = function(html){
 
     this.gradesList = tempList;      /* unsorted grades Map used for local storage */
     this.gradesMap = tempMap;        /* sorted grades List used for printing */
+
+    /* save to local storage */
+    saveGradeData(this.gradesMap);
 };
+
+function saveGradeData(grades){
+
+    var config = {gradesMap : grades};
+
+    chrome.storage.local.set (config,
+        /* save complete */
+        function () {
+            console.log("New grades saved");
+        });
+}
+
+function compareGrades(oldGrades, newGrades){
+
+    /* if first run */
+    if(oldGrades === null){
+        return;
+    }
+
+    var notifyGrades = [];
+
+    for (var key in newGrades) {
+
+        /* check if map key */
+        if (newGrades.hasOwnProperty(key)) {
+            //console.log("checking for " + key + " -> " + newGrades[key]);
+
+            /* compare to old grades */
+            if(!oldGrades.hasOwnProperty(key)){
+
+                var grade = newGrades[key];
+
+                notifyGrades.push({title : grade.ue, message: grade.controle});
+
+                console.log("new grade found for " +  key + " -> " + newGrades[key]);
+            }
+        }
+    }
+
+    if(notifyGrades.length != 0){
+        console.log("Found new grades " + notifyGrades);
+
+        createBadge(notifyGrades.length.toString());
+        createNotification(notifyGrades);
+
+    }
+    else{
+        console.log("No new grades found " + newGradesFound);
+    }
+    
+}
+

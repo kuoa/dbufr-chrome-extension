@@ -2,14 +2,17 @@
  * Created by kuoa on 1/11/17.
  */
 
-const alarmName = "check-dbufr-updates";
-const url = "https://www-dbufr.ufr-info-p6.jussieu.fr/lmd/2004/master/auths/seeStudentMarks.php";
+const alarmName = "dbufr-check-updates";
 
-function compareGrades() {
-    
-}
+function checkUpdates(config){
 
-function checkUpdates(config, alarm){
+
+    var oldGradesMap = config.gradesMap;
+
+    /* testing */
+    console.log("removing grade");
+    delete oldGradesMap["4I801-2016oct[examen-reparti-1] 2 novembre"];
+    delete oldGradesMap["4I501-2016oct[partiel] creation du 30-11-2016-108"];
 
     var req = new XMLHttpRequest();
 
@@ -23,8 +26,11 @@ function checkUpdates(config, alarm){
             switch (req.status) {
                 case 200 :
                     var grades = new GradeSet(this.responseText);
+                    var newGradesMap = grades.gradesMap;
+
                     console.log(grades);
-                    compareGrades(grades.gradesMap);
+
+                    compareGrades(oldGradesMap, newGradesMap);
                     break;
 
                 case 401 :
@@ -36,27 +42,26 @@ function checkUpdates(config, alarm){
 
     req.onerror = function () {
 
-       console.log("Erreur inattendue de réseau");
+        console.log("Erreur inattendue de réseau");
     };
 
     req.send();
 
-    console.log("Got an alarm!", alarm);
+    console.log("Got an alarm!");
 }
 
 function configureScheduler(config){
 
-    console.log("setting alarm " + config);
-
     /* set callback */
     chrome.alarms.onAlarm.addListener(function (alarm) {
-        //checkUpdates(config, alarm);
+        checkUpdates(config);
     });
 
 
     /* create alarm */
     chrome.alarms.create(alarmName, {
-        delayInMinutes: 0.1,
-        periodInMinutes: 0.1
+        /* needs to be * 60 */
+        periodInMinutes: config.frequency/10
     });
 }
+

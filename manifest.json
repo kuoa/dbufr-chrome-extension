@@ -21,6 +21,16 @@
   "permissions": [
     "storage",
     "alarms",
+    "notifications",
     "https://www-dbufr.ufr-info-p6.jussieu.fr/"
-  ]
+  ],
+
+  "web_accessible_resources": [
+    "images/icon.png"
+  ],
+
+  "background": {
+    "page" : "popup.html",
+    "persistent" : false
+  }
 }

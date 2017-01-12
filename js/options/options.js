@@ -5,7 +5,7 @@
 function saveOptions(){
     var userId = $('#student-id').val();
     var userPass = $('#student-pswd').val();
-    var updateFreq = $('input[name=radio-frequency]:checked', '#options-form').val();
+    var updateFreq = parseInt($('input[name=radio-frequency]:checked', '#options-form').val());
 
     var config = {
         login : userId,
@@ -18,7 +18,7 @@ function saveOptions(){
         function () {
 
             /* automatic updates */
-            configureScheduler(config);
+            /* GET BACKGROUND PAGE */
             
             /* replace current message */
             $('#save-title').fadeOut(300, function () {

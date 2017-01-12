@@ -4,6 +4,7 @@
 
 /****** listeners ******/
 
+
 /****** extension logic ******/
 const url = "https://www-dbufr.ufr-info-p6.jussieu.fr/lmd/2004/master/auths/seeStudentMarks.php";
 
@@ -110,19 +111,28 @@ function displayNetworkError(msg){
 
 function initializeExtension(){
 
+
+    /* number of new grades badge */
+    removeBadge();
+
     showProgressBar();
 
     /* recover user informations from storage */
     chrome.storage.sync.get({
         login : "",
         password : "",
-        frequency : 1
+        frequency : 1,
+        gradesMap: null
     },
 
         /* information recovered | do the request */
         function (config) {
+
+            configureScheduler(config);
+
             getDbufrData(config, displayData, displayLoginError, displayNetworkError);
         });
 }
 
 document.addEventListener('DOMContentLoaded', initializeExtension);
+

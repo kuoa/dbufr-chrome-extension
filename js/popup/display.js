@@ -72,7 +72,7 @@ function createTable(gradeSet) {
 
         /* grade goes in the same table */
         if(ue.charAt(0) == tableNb){
-            content += '<tr><td>'+ ue + '</td>' +
+            content += '<tr id="' + grade.ue + grade.controle + '"><td>'+ ue + '</td>' +
                 '<td>' + grade.controle + '</td>' +
                 '<td><strong>' + note[0] +'</strong>/' + note[1] +'</td> </tr>';
         }
@@ -128,11 +128,11 @@ function getDateTime(){
     var hh = today.getHours();
     var min = today.getMinutes();
 
-    if(dd<10) {
+    if(dd < 10) {
         dd='0' + dd
     }
 
-    if(mm<10) {
+    if(mm < 10) {
         mm='0'  +mm
     }
 
