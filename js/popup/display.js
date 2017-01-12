@@ -41,7 +41,9 @@ function tableContentStartHtml(idCounter) {
         'role="tabpanel" aria-labelledby="heading"'+'idCounter' + '">' +
         '<div class="panel-body">' +
         '<table class="table table-bordered table-condensed" id="table"' + idCounter +'">' +
-        '<thead> <tr class="active"> <th>UE</th> <th>Contrôle</th> <th>Note</th> </tr> </thead>' + '<tbody>';
+        '<thead> <tr class="active"> <th>UE</th>' +
+        '<th>Contrôle<input class="form-control form-group-sm filter" type="text" placeholder="Search/Filter"></th>' +
+        '<th>Note</th> </tr> </thead>' + '<tbody>';
 
     return contentMoldStart;
 }
@@ -72,7 +74,8 @@ function createTable(gradeSet) {
 
         /* grade goes in the same table */
         if(ue.charAt(0) == tableNb){
-            content += '<tr id="' + grade.ue + grade.controle + '"><td>'+ ue + '</td>' +
+            var id = grade.ue + grade.controle + grade.note;
+            content += '<tr id="' + id.toLowerCase() + '"><td>'+ ue + '</td>' +
                 '<td>' + grade.controle + '</td>' +
                 '<td><strong>' + note[0] +'</strong>/' + note[1] +'</td> </tr>';
         }
@@ -97,9 +100,29 @@ function createTable(gradeSet) {
 
     /* append table */
     $('#accordion').append(content);
+
     /* color the last one */
     $('#heading' + idCounter).parent()
         .removeClass('panel-default').addClass('panel-info');
+
+    /* change his glyphicon */
+    $('#heading' + idCounter).children(0).children(0)
+        .removeClass('glyphicon-chevron-down')
+        .addClass('glyphicon-chevron-up');
+
+    /* register filter function */
+    $('.filter').keyup(function(event){
+
+        /* i know :) */
+        var rows = $(event.target).parent().parent().parent().siblings(0).children();
+
+        var filterValue =  $(event.target).val().toLowerCase();
+        var regexp = new RegExp(filterValue);
+
+        filterGrades(regexp, rows);
+    });
+
+
     /* open the last one */
     $('#collapse' + idCounter).addClass('in');
 
@@ -120,6 +143,28 @@ function showProgressBar(){
     $('.loading-panel').show('slow');
 }
 
+/**
+ * Show the rows that match the regexp.
+ * @param regexp
+ * @param rows
+ */
+function filterGrades(regexp, rows){
+    $(rows).each(function () {
+        var rowContent = $(this).attr('id');
+
+        if(rowContent.search(regexp) === -1){
+            $(this).fadeOut(300, function () {
+                $(this).hide();
+            });
+        }
+        else{
+            $(this).fadeIn(300, function () {
+                $(this).show();
+            });
+        }
+    });
+}
+
 function getDateTime(){
     var today = new Date();
     var dd = today.getDate();
@@ -135,7 +180,6 @@ function getDateTime(){
     if(mm < 10) {
         mm='0'  +mm
     }
-
 
     return dd + '/' + mm+'/' + yyyy + " " + hh + ":" + min;
 }
