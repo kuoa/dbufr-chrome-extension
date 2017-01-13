@@ -127,9 +127,8 @@ function initializeExtension(){
     chrome.storage.sync.get({
         login : "",
         password : "",
-        frequency : 1,
-        notifications : true,
-        gradesMap: null
+        frequency : 6,
+        notifications : true
     },
 
         /* information recovered | do the request */

@@ -9,44 +9,48 @@ const alarmName = "dbufr-check-updates";
  */
 function checkUpdates(config){
 
-    var oldGradesMap = config.gradesMap;
+    /* recover old grades from storage */
+    chrome.storage.local.get({
+            gradesMap: null
+    },
 
-    /* testing */
-    console.log("removing grade");
-    delete oldGradesMap["4I801-2016oct[examen-reparti-1] 2 novembre"];
-    delete oldGradesMap["4I501-2016oct[partiel] creation du 30-11-2016-108"];
+        /* information recovered | do the request */
+        function (data) {
 
-    var req = new XMLHttpRequest();
+            var oldGradesMap = data.gradesMap;
 
-    req.open("GET", url, true);
-    req.setRequestHeader("Authorization", "Basic " + btoa(config.login + ":" + config.password));
-    req.withCredentials = true;
+            var req = new XMLHttpRequest();
 
-    req.onload = function () {
+            req.open("GET", url, true);
+            req.setRequestHeader("Authorization", "Basic " + btoa(config.login + ":" + config.password));
+            req.withCredentials = true;
 
-        if(req.readyState === 4){
-            switch (req.status) {
-                case 200 :
-                    var grades = new GradeSet(this.responseText);
-                    var newGradesMap = grades.gradesMap;
+            req.onload = function () {
 
-                    compareGrades(config, oldGradesMap, newGradesMap);
-                    break;
+                if(req.readyState === 4){
+                    switch (req.status) {
+                        case 200 :
+                            var grades = new GradeSet(this.responseText);
+                            var newGradesMap = grades.gradesMap;
 
-                case 401 :
-                    console.log("Numéro d'étudiant ou mot de passe incorrect");
-                    break;
-            }
-        }
-    };
+                            compareGrades(config, oldGradesMap, newGradesMap);
+                            break;
 
-    req.onerror = function () {
+                        case 401 :
+                            console.log("Numéro d'étudiant ou mot de passe incorrect");
+                            break;
+                    }
+                }
+            };
 
-        console.log("Erreur inattendue de réseau");
-    };
+            req.onerror = function () {
 
-    req.send();
+                console.log("Erreur inattendue de réseau");
+            };
 
+            req.send();
+
+        });
 }
 
 /**
@@ -64,5 +68,7 @@ function configureScheduler(config){
     chrome.alarms.create(alarmName, {
         periodInMinutes: config.frequency * 60
     });
+
+    console.log("Alarm created : " + config.frequency * 60);
 }
 

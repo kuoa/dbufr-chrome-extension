@@ -59,10 +59,11 @@ function saveGradeData(grades){
 
     var config = {gradesMap : grades};
 
+
     chrome.storage.local.set (config,
         /* save complete */
         function () {
-            console.log("New grades saved");
+            console.log("New grades saved " + config);
         });
 }
 

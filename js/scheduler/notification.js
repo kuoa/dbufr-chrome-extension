@@ -23,8 +23,8 @@ function createNotification(data){
 
     var options = {
         type: "list",
-        title: "New grades available",
-        message: "Here are your new grades",
+        title: "Nouvelles notes disponibles",
+        message: "Vos notes sont ici : ",
         iconUrl: "images/icon128.png",
         items: data
     };

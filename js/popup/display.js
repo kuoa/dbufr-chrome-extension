@@ -41,7 +41,7 @@ function tableContentStartHtml(idCounter) {
         'role="tabpanel" aria-labelledby="heading"'+'idCounter' + '">' +
         '<div class="panel-body">' +
         '<table class="table table-bordered table-condensed" id="table"' + idCounter +'">' +
-        '<thead> <tr class="active"> <th>UE</th>' +
+        '<thead> <tr class="active"> <th class="fix">UE</th>' +
         '<th>Contrôle<input class="form-control form-group-sm filter" type="text" placeholder="Search/Filter"></th>' +
         '<th>Note</th> </tr> </thead>' + '<tbody>';
 
