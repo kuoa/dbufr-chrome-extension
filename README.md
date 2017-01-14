@@ -7,9 +7,9 @@
 
 This app was born from frustration, after numerous days of scrolling to get to the bottom of the DBUFR page.
 It is open source so any contributions, comments, cheers, coffee cups if you see me on the campus :) are more than welcomed.
-I tried to document the code so you can explore interested, you be the judge on how well i succeeded.
 
-[![alt text](https://developer.chrome.com/webstore/images/ChromeWebStore_Badge_v2_206x58.png "chrome store")](https://kuoa.github.io/dbufr-chrome-extension)
+
+[![alt text](https://developer.chrome.com/webstore/images/ChromeWebStore_Badge_v2_206x58.png "chrome store")](https://chrome.google.com/webstore/detail/dbufr/kcinicchakadpomogbdgimgmjicbkmgf?authuser=1)
 
 ### Features
 * A compact view of all your grades

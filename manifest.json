@@ -3,7 +3,7 @@
   "name": "DBUFR",
   "version": "1.0.0",
 
-  "description": "Consultation des notes de l'UFR d'Informatique de l'Université Pierre et Marie Curie",
+  "description": "Consult your grades at Pierre and Marie Curie University.",
 
   "author": "Sandu Postaru",
   "homepage_url": "https://kuoa.github.io/dbufr-chrome-extension/",
