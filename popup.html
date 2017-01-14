@@ -35,6 +35,12 @@
                 margin-left: 170px;
             }
 
+            #main-options-gear {
+                padding-right: 17px;
+                padding-top: 8px;
+            }
+
+
         </style>
     </head>
 
@@ -67,7 +73,11 @@
             <div class="error-panel collapse"></div>
 
             <!-- main panel [hidden] -->
-            <div class="main-panel collapse">
+            <div class="main-panel collapse" id="grade-panel">
+
+                <span role="button" class="glyphicon glyphicon-cog pull-right" id="main-options-gear"
+                      aria-hidden="true" id="options-button"></span>
+
                 <h3 class="text-center" id="welcome"></h3>
 
                 <div class="panel panel-default">

@@ -24,21 +24,43 @@ var GradeSet = function(html){
 
     /* obtain a jQuery object from raw html */
     var jHtml = $.parseHTML(html),
-        student = $(jHtml).children()[2].textContent.split(",");
+        student = $(jHtml).children()[2].textContent.split(',');
 
     this.firstName = student[1].trim().charAt(0).toUpperCase() + student[1].substr(2);
     this.lastName = student[0].trim();
 
-    var gradesTable = $(jHtml).find('.Table')[1],
-        gradesRows = $(gradesTable).find("tr");
+    /* parse UE codes */
+    var tables = $(jHtml).find('.Table'),
+        ueCodes = tables[0],
+        ueRows = $(ueCodes).find('tr');
+
+    var tempUeMap = {};
+
+    ueRows.each(function(index, value){
+        var fields = $(value).children(),
+            key = fields[1].textContent.trim(),
+            isoName = fields[3].textContent.trim();
+
+        /* fix french accents */
+        /* this is kinda dirty but it works */
+        tempUeMap[key] = fixAccents(isoName);
+
+
+    });
+
+    this.ueMap = tempUeMap;
+
+    /* parse grades */
+    var gradesTable = tables[1],
+        gradesRows = $(gradesTable).find('tr');
 
     var tempList = [],
         tempMap = {};
 
     gradesRows.each(function(index, value) {
-        var fields = $(value).children();
-        var grade = new Grade(fields[0].textContent, fields[1].textContent, fields[2].textContent);
-        var key = fields[0].textContent + fields[1].textContent;
+        var fields = $(value).children(),
+            grade = new Grade(fields[0].textContent, fields[1].textContent, fields[2].textContent),
+            key = fields[0].textContent + fields[1].textContent;
 
         tempList.push(grade);
         tempMap[key] = grade;
@@ -111,3 +133,19 @@ function compareGrades(config, oldGrades, newGrades){
     }
 }
 
+
+function fixAccents(isoValue){
+
+    /* weird <92> symbol instead of "'" */
+    var value = isoValue.replace(/<92>/, "'");
+
+    try {
+        /* try to fix */
+        return decodeURIComponent(escape(value));
+    }
+    catch (e) {
+        /* failed to fix, use isoValue*/
+        return value;
+    }
+
+}

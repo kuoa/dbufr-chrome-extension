@@ -19,6 +19,17 @@ function createNewView(gradeSet){
         "</strong> telles que connues et affichées au <strong>" + getDateTime() + "</strong>";
 
     $('#description').html(description);
+    
+    /* add listener on main-options-button */
+    $('#main-options-gear').on('click', function () {
+        if (chrome.runtime.openOptionsPage) {
+            // New way to open options pages, if supported (Chrome 42+).
+            chrome.runtime.openOptionsPage();
+        } else {
+            // Reasonable fallback.
+            window.open(chrome.runtime.getURL('options.html'));
+        }
+    });
 
     /* create and display the grade Table */
     createTable(gradeSet);
@@ -74,8 +85,13 @@ function createTable(gradeSet) {
 
         /* grade goes in the same table */
         if(ue.charAt(0) == tableNb){
-            var id = grade.ue + grade.controle + grade.note;
-            content += '<tr id="' + id.toLowerCase() + '"><td>'+ ue + '</td>' +
+
+            var id = grade.ue + grade.controle + grade.note,
+                ueDescritpion = gradeSet.ueMap[ue];
+
+            content += '<tr id="' + id.toLowerCase() + '">' +
+                '<td data-toggle="tooltip" ' +
+                'data-placement="top" title="' + ueDescritpion + '">'+ ue + '</td>' +
                 '<td>' + grade.controle + '</td>' +
                 '<td><strong>' + note[0] +'</strong>/' + note[1] +'</td> </tr>';
         }
@@ -122,6 +138,8 @@ function createTable(gradeSet) {
         filterGrades(regexp, rows);
     });
 
+    /* enable tooltips */
+    $('td').tooltip({container:'body'});
 
     /* open the last one */
     $('#collapse' + idCounter).addClass('in');

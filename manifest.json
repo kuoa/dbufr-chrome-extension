@@ -6,7 +6,7 @@
   "description": "Consultation des notes de l'UFR d'Informatique de l'Université Pierre et Marie Curie",
 
   "author": "Sandu Postaru",
-  "homepage_url": "https://github.com/kuoa/dbufr-chrome-extension",
+  "homepage_url": "https://kuoa.github.io/dbufr-chrome-extension/",
 
   "browser_action": {
     "default_icon": {

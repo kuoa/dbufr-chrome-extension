@@ -21,6 +21,7 @@ function getDbufrData(config, successCallback, loginErrorCallback, networkErrorC
     req.setRequestHeader("Authorization", "Basic " + btoa(config.login + ":" + config.password));
     req.withCredentials = true;
 
+
     req.onload = function () {
 
         hideProgressBar();
@@ -71,7 +72,7 @@ function displayLoginError(msg){
         '<span class="sr-only">Error:</span>' + msg +
         '<span href="options page" class="alert-link pull-right" role="button">' +
         '<span class="glyphicon glyphicon-cog" aria-hidden="true" id="options-button"></span>' +
-        '</span> </div>';
+        '</span></div>';
 
     /* display content */
     $('.error-panel').html(content).show();
