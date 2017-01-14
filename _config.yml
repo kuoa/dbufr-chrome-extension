@@ -34,7 +34,7 @@ sass:
 #twitter:            username
 #facebook:           username
 github:             kuoa
-chrome:             http://example.com
+chrome:             https://chrome.google.com/webstore/detail/dbufr/kcinicchakadpomogbdgimgmjicbkmgf?authuser=1
 website:            https://kuoa.github.io/
 #stackoverflow:     123456/username   from a "http://stackoverflow.com/users/123456/username" link
 #linkedin:          username

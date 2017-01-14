@@ -8,7 +8,7 @@ if not it just looks pretty in your browser.</p>
 
 <p style="color: #474747">This app was born from frustration, after numerous days of scrolling to get to the bottom of the DBUFR page.</p>
 
-<p style="color: #474747">This extension is <a href="https://github.com/kuoa/dbufr-chrome-extension" target="_blank" style="color: #4372AA">open source</a>, find about all of its features and download it on the <a href="chrome store" target="_blank" style="color: #4372AA">chrome store</a>.</p> 
+<p style="color: #474747">This extension is <a href="https://github.com/kuoa/dbufr-chrome-extension" target="_blank" style="color: #4372AA">open source</a>, find about all of its features and download it on the <a href="https://chrome.google.com/webstore/detail/dbufr/kcinicchakadpomogbdgimgmjicbkmgf?authuser=1" target="_blank" style="color: #4372AA">chrome store</a>.</p> 
 
 
 
