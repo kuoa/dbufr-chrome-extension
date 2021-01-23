@@ -1,5 +1,6 @@
 
 ## dbufr-chrome-extension
+
 [![alt text](https://kuoa.github.io/dbufr-chrome-extension/images/icon256.png "dbufr-chrome-extension")](https://kuoa.github.io/dbufr-chrome-extension)
 
 
@@ -8,8 +9,7 @@
 This app was born from frustration, after numerous days of scrolling to get to the bottom of the DBUFR page.
 It is open source so any contributions, comments, cheers, coffee cups if you see me on the campus :) are more than welcomed.
 
-
-[![alt text](https://developer.chrome.com/webstore/images/ChromeWebStore_Badge_v2_206x58.png "chrome store")](https://chrome.google.com/webstore/detail/dbufr/kcinicchakadpomogbdgimgmjicbkmgf?authuser=1)
+[![alt text](https://img.shields.io/chrome-web-store/v/kcinicchakadpomogbdgimgmjicbkmgf "chrome store")](https://chrome.google.com/webstore/detail/dbufr/kcinicchakadpomogbdgimgmjicbkmgf?authuser=1) [![alt text](https://img.shields.io/chrome-web-store/users/kcinicchakadpomogbdgimgmjicbkmgf "chrome store")](https://chrome.google.com/webstore/detail/dbufr/kcinicchakadpomogbdgimgmjicbkmgf?authuser=1)  [![alt text](https://img.shields.io/chrome-web-store/rating/kcinicchakadpomogbdgimgmjicbkmgf "chrome store")](https://chrome.google.com/webstore/detail/dbufr/kcinicchakadpomogbdgimgmjicbkmgf?authuser=1)
 
 ### Features
 * A compact view of all your grades
